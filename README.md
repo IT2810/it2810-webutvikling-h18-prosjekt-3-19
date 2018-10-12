@@ -4,6 +4,10 @@ IT2810 - Prosjekt 3, gruppe 19
 
 One Paragraph of project description goes here
 
+* **Ahsan Azim** [@ahsannazim](https://github.com/ahsannazim)
+* **Johannes Tomren Røsvik** [@rosvik](http://github.com/rosvik)
+* **Pål Fossnes** [@Palfos23](http://github.com/Palfos23)
+
 ## Getting Started
 
 ### Prerequisites
@@ -66,10 +70,6 @@ Add additional notes about how to deploy this on a live system
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Johannes Tomren Røsvik** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## Acknowledgments
 
