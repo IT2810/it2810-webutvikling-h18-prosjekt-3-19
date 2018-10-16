@@ -20,8 +20,6 @@ npm install expo-cli --global
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
 Installer node pakker
 
 ```
@@ -34,31 +32,24 @@ Bygg prosjektet med expo
 expo start
 ```
 
-Scan QR-koden med mobilen for å åpne applikasjonen for bruk.
+Scan QR-koden med mobilen for å åpne applikasjonen.
 
 ## Running the tests
 
 Explain how to run the automated tests for this system
 
-### Break down into end to end tests
 
-Explain what these tests test and why
+## Diskusjon av viktige valg
 
-```
-Give an example
-```
+> Dokumentasjonen skal diskutere, forklare og vise til alle de viktigste valgene og løsningene som gruppa gjør (inklusive valg av komponenter og api).
 
-### And coding style tests
 
-Explain what these tests test and why
 
-```
-Give an example
-```
+## Tutorials for valg av teknologi
 
-## Deployment
+> Gruppas valg av teknologi som utforskes (jmfr krav til innhold) skal dokumenteres i tutorials form slik at andre lett kan lære av eksempelet dere lager (dvs. gi en liten introduksjon til hva og hvordan).
 
-Add additional notes about how to deploy this on a live system
+
 
 ## Built With
 
@@ -67,12 +58,3 @@ Add additional notes about how to deploy this on a live system
 * [Expo](https://expo.io) - Bygging av applikasjonen
 * [Jest](https://jestjs.io) - Testing
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
