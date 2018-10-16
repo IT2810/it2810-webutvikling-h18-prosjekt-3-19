@@ -37,14 +37,14 @@ export default class HomeScreen extends React.Component {
                 let infld = this.state.text
                 Alert.alert('You tapped the button!' + infld);
 
-                this._storeData(infld);
+                this._storeEntry(infld);
 
               }} style={styles.helpLinkText}>
               Save
             </Text>
 
             <Text onPress={() => {
-                this._retrieveData();
+                this._retrieveEntry();
               }} style={styles.helpLinkText}>
               Get
             </Text>
