@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "borderBottomColor": "#ededed",
+      "borderBottomWidth": 2,
+      "padding": 20,
+      "paddingRight": 100,
+      "position": "relative",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "borderLeftColor": "#E91E63",
+        "borderLeftWidth": 10,
+        "paddingLeft": 20,
+      }
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "borderLeftColor": "#E91E63",
+        "borderLeftWidth": 10,
+        "paddingLeft": 20,
+      }
+    }
+  />
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#2980b9",
+        "bottom": 10,
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 10,
+        "position": "absolute",
+        "right": 10,
+        "top": 10,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    >
+      D
+    </Text>
+  </View>
+</View>
+`;
