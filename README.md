@@ -52,53 +52,65 @@ npm test
 
 ### Snapshot testing
 
-Vår første test var ganske enkel, å lage en "snapshot" av render-outputen for vår første komponent (TabBarIcon)
+Vår første test var ganske enkel, å lage en "snapshot" av render-outputen for vår første komponent (Todo)
 
 ```
 import "react-native";
 import React from "react";
-import TabBarIcon from "../TabBarIcon";
+import Todo from "../Todo";
 import renderer from "react-test-renderer";
 
 it("renders correctly", () => {
-  const tree = renderer.create(<TabBarIcon />).toJSON();
+  const tree = renderer.create(<Todo />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
 ```
 
-Man kan da sjekke ut resultatet i TabBarIcon-test.js.snap
-
-```
-// TabBarIcon-test.js.snap
-
-exports[`renders correctly 1`] = `
-<Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
-/>
-`;
-```
+Alle snapshots blir lagret i "**tests**/**snapshots**/".
+Man kan da sjekke ut resultatet i Todo-test.js.snap.
 
 Bakgrunnen for bruken av snapshot testing er at vi vil forsikre oss om at hver gang vi kjører testene våre vil outputen av vår test render matche hva det var tidligere (eller oppdatere disse snapshotene når de endrer seg som forventet). Snapshot testing er med andre ord et veldig nyttig verktøy når man vil forsikre seg om at UI'et sitt ikke endrer seg uventet.
 Neste gang man kjører testene vil outputen som blir rendered bli sammenlignet med snapshotet som ble lagd tidligere. Om en snapshot test feiler, må man undersøke om forandringen er ønsket eller ei. Dersom forandringen er ønsket kan man kalle Jest ved å bruke
 
 ```
-jest -u
+npm test -- --u
 ```
 
 for å overskrive det eksisterende snapshotet.
 
-### Shallow rendering
+### Unit testing
 
-Dersom komponenten din har flere lag vil man gjerne bruke shallow rendering for å teste komponentene sine. Øverst i testen må man da sette inn
+Unit testing med Jest gjøres som i det aller fleste rammeverk. Man har en tilnærmet engelskspråklig syntax, eksempler på dette er:
 
 ```
-import ShallowRenderer from 'react-test-renderer/shallow';
+expect(answer)toBeTruthy();
+expect(value)toBeGreaterThan(6);
+expect(compileAndroidCode).toThrow(ConfigError);
 ```
 
-Et eksempel på bruk av shallow rendering i vårt prosjekt er
+Dette kan man se i testingen vår av komponenten Todo:
+
+```
+...
+describe("Testing functionality", () => {
+    test("Checkbox is checked", () => {
+      tree2.checkBoxChecked();
+      expect(tree2.state.dialogVisible).toBeFalsy();
+    });
+
+...
+```
+
+### Coverage
+
+Se test-coverage med
+
+```
+npm test -- --coverage
+```
+
+En ting som er verdt å merke seg ved dette prosjektet er at vi er ute etter å vise at vi kan teste komponentene våre (basic unit testing) med bruk av jest. Test-coverage står dermed ikke i hovedfokus i dette prosjektet.
 
 ## Diskusjon av viktige valg
 
