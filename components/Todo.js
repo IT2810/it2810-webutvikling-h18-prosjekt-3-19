@@ -5,43 +5,78 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
+
+import { CheckBox, ListItem, Body } from 'native-base';
+
 export default class Todo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          text: this.props.text,
+          checked: false,
+          dialogVisible: false
+        }
+      }
+    
+      checkBoxChecked = () => {
+        this.props.removeTodoElement(this.props.text);
+        this.setState({ dialogVisible: false });
+      }
+    
+      showDialog = () => {
+        this.setState({ dialogVisible: true });
+      };
+    
+      handleCancel = () => {
+        this.setState({ dialogVisible: false });
+      };
+
+    
     render() {
         return (
-            <View key={this.props.keyval} style={styles.note}>
-                <Text style={styles.noteText}>{this.props.val.date}</Text>
-                <Text style={styles.noteText}>{this.props.val.note}</Text>
-                <TouchableOpacity onPress={this.props.deleteMethod} style={styles.noteDelete}>
-                    <Text style={styles.noteDeleteText}>D</Text>
+            <View key={this.props.keyval} style={styles.todo}>
+            <ListItem>
+                  <CheckBox style={styles.checkBox}
+                    center
+                    checked={this.state.checked}
+                  />
+              <Body>
+                <Text style={styles.todoText}>{this.props.val.date}</Text>
+                <Text style={styles.todoText}>{this.props.val.todo}</Text>
+                </Body>
+              </ListItem>
+              <TouchableOpacity onPress={this.props.deleteMethod} style={styles.todoDelete}>
+                    <Text style={styles.todoDeleteText}>X</Text>
                 </TouchableOpacity>
-            </View>
+         </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    note: {
+    todo: {
         position: 'relative',
-        padding: 20,
         paddingRight: 100,
         borderBottomWidth:2,
-        borderBottomColor: '#ededed'
+        borderBottomColor: 'white'
     },
-    noteText: {
+    todoText: {
         paddingLeft: 20,
         borderLeftWidth: 10,
         borderLeftColor: '#E91E63'
     },
-    noteDelete: {
+    todoDelete: {
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#2980b9',
-        padding: 10,
         top: 10,
         bottom: 10,
-        right: 10
+        right: 10,
+        zIndex: 11,
+        borderRadius: 5,
+        width: 40
     },
-    noteDeleteText: {
+    todoDeleteText: {
         color: 'white'
     }
 });
