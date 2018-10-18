@@ -27,7 +27,6 @@ export default class Completed extends Component {
                 <View>
                         <TextInput 
                             style={styles.textInput}
-                            color='black'
                             placeholder='Write Todo Here!'
                             onChangeText={(todoText)=> this.setState({todoText})}
                             value={this.state.todoText}
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         alignSelf: 'stretch',
-        color: '#fff',
+        color: '#000',
         padding: 20,
         backgroundColor: 'white',
         borderTopWidth:2,

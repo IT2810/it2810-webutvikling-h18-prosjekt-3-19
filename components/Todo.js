@@ -55,8 +55,6 @@ const styles = StyleSheet.create({
     },
     todoText: {
         paddingLeft: 20,
-        borderLeftWidth: 10,
-        borderLeftColor: '#E91E63'
     },
     todoDelete: {
         position: 'absolute',
