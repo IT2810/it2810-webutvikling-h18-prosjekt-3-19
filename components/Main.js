@@ -5,7 +5,9 @@ import {
     StyleSheet,
     TextInput,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert,
+    AsyncStorage,
 } from 'react-native';
 import Todo from './Todo';
 
@@ -17,6 +19,7 @@ export default class Completed extends Component {
             todoText: '',
         };
     }
+
     render() {
         let todos = this.state.todoArray.map((val, key)=>{
             return <Todo key={key} keyval={key} val={val}
@@ -54,12 +57,55 @@ export default class Completed extends Component {
             });
             this.setState({ todoArray: this.state.todoArray });
             this.setState({todoText:''});
+            Alert.alert("test");
+            this.saveTodo();
+            this.getJSON();
         }
     }
+
+    componentDidMount() {
+      this.getJSON();
+    }
+
+    updatelist() {
+      Alert.alert(JSON.stringify(this.state.todos))
+    }
+
+    getJSON() {
+      this._retrieveEntry('@ToDoStore:JSON');
+    }
+
+    saveTodo() {
+      this._storeEntry('@ToDoStore:JSON', "JSONDATA");
+    }
+
     deleteTodo(key){
         this.state.todoArray.splice(key, 1);
         this.setState({todoArray: this.state.todoArray});
     }
+    _retrieveEntry = async (key) => {
+      try {
+        const value = await AsyncStorage.getItem('@ToDoStore:JSON');
+        if (value !== null) {
+          // We have data!!
+          console.log(value);
+          Alert.alert(value);
+        }
+      } catch (error) {
+        // Error retrieving data
+        Alert.alert('¯\\_(ツ)_/¯ ');
+      }
+    }
+
+    _storeEntry = async (key, data) => {
+      try {
+        await AsyncStorage.setItem('@ToDoStore:JSON', 'JSONDATA');
+      } catch (error) {
+        Alert.alert('Error saving data');
+      }
+    }
+
+
 }
 const styles = StyleSheet.create({
     todo: {
