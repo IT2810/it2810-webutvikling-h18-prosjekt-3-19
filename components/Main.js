@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Todo from './Todo';
 
-export default class Main extends Component {
+export default class Completed extends Component {
     constructor(props){
         super(props);
         this.state = {
