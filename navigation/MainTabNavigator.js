@@ -4,39 +4,56 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import TodoScreen from '../screens/TodoScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
 import MapScreen from '../screens/MapScreen';
 import CompletedScreen from '../screens/CompletedScreen';
 
-
-
-const HomeStack = createStackNavigator({
+const TodoStack = createStackNavigator({
   Home: TodoScreen,
 });
 
-HomeStack.navigationOptions = {
+TodoStack.navigationOptions = {
   tabBarLabel: 'Todo',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-checkmark-circle${focused ? '' : '-outline'}`
+          : 'md-checkmark-circle'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: CompletedScreen,
+const CompletedStack = createStackNavigator({
+  Home: CompletedScreen,
 });
 
-LinksStack.navigationOptions = {
+CompletedStack.navigationOptions = {
   tabBarLabel: 'Completed',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-checkmark-circle${focused ? '' : '-outline'}`
+          : 'md-checkmark-circle'
+      }
+    />
+  ),
+};
+
+const AchievementsStack = createStackNavigator({
+  Links: AchievementsScreen,
+});
+
+AchievementsStack.navigationOptions = {
+  tabBarLabel: 'Achievements',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-trophy${focused ? '' : '-outline'}` : 'md-link'}
     />
   ),
 };
@@ -50,13 +67,20 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name={Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-options'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  TodoStack,
+  CompletedStack,
+  AchievementsStack,
   SettingsStack,
 });
+
+// export default createBottomTabNavigator({
+//   TodoStack,
+//   AchievementsStack,
+//   SettingsStack,
+// });

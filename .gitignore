@@ -74,3 +74,4 @@ RNTester/build
 
 # Expo
 .expo/**/*
+\.expo/
