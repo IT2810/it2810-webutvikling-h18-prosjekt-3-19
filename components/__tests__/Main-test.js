@@ -12,26 +12,26 @@ describe("Testing Main", () => {
 
   describe("Initial state", () => {
     test("noteArray should be empty", () => {
-      expect(tree2.state.noteArray).toHaveLength(0);
+      expect(tree2.state.todoArray).toHaveLength(0);
     });
   });
 
   describe("Note functions", () => {
     test("prevent empty notes from being added", () => {
-      tree2.addNote();
-      expect(tree2.state.noteArray).toEqual([]);
+      tree2.addTodo();
+      expect(tree2.state.todoArray).toEqual([]);
     });
 
     test("add new note successfully", () => {
-      tree2.setState({ noteText: "do stuff" });
-      tree2.addNote();
-      expect(tree2.state.noteArray).toHaveLength(1);
+      tree2.setState({ todoText: "do stuff" });
+      tree2.addTodo();
+      expect(tree2.state.todoArray).toHaveLength(1);
     });
 
     test("delete note successfully", () => {
-      tree2.deleteNote(0);
-      expect(tree2.state.noteArray).toHaveLength(0);
-      expect(tree2.state.noteArray).toEqual([]);
+      tree2.deleteTodo(0);
+      expect(tree2.state.todoArray).toHaveLength(0);
+      expect(tree2.state.todoArray).toEqual([]);
     });
   });
 });
