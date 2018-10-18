@@ -10,21 +10,17 @@ import { CheckBox, ListItem, Body } from 'native-base';
 
 export default class Todo extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-          text: this.props.text,
-          checked: false
-        }
+      super(props);
+      this.state = {
+        text: this.props.text,
+        checked: false
       }
-    
-    
-    
+    }
+
 
     checkBoxChecked = () => {
-        this.props.deleteMethod(this.props.text);
-        console.log('hi');
-
-      };
+      this.props.completeMethod(this.props.text);
+    };
 
     render() {
         return (

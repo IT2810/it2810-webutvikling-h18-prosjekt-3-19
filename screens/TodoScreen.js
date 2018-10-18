@@ -11,7 +11,7 @@ export default class TodoScreen extends React.Component {
 
   render() {
     return (
-            <Main/>
+      <Main/>
     );
   }
 

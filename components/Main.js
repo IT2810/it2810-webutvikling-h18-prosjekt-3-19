@@ -13,24 +13,25 @@ import Todo from './Todo';
 
 export default class Completed extends Component {
     constructor(props){
-        super(props);
-        this.state = {
-            todoArray: [],
-            todoText: '',
+      super(props);
+      this.state = {
+        todoArray: [],
+        todoText: '',
 
-            JsonDB: {
-              'todos':[],
-              'totalcount': 0,
-              'todaycount': 0,
-              'today': '2000/01/01',
-            },
-        };
+        JsonDB: {
+          'todos':[],
+          'totalcount': 0,
+          'todaycount': 0,
+          'today': '2000/01/01',
+        },
+      };
     }
 
     render() {
         let todos = this.state.todoArray.map((val, key)=>{
             return <Todo key={key} keyval={key} val={val}
-                    deleteMethod={()=>this.deleteTodo(key)}/>
+                    deleteMethod={()=>this.deleteTodo(key)}
+                    completeMethod={()=>this.completeTodo(key)}/>
         });
         return (
             <View style={styles.todo}>
@@ -46,7 +47,7 @@ export default class Completed extends Component {
                         </TextInput>
 
                         {/* DEBUG */}
-                        <Text>{ this.state.debug }</Text>
+                        {/*<Text>{ this.state.debug }</Text>*/}
 
                         <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
                             <Text style={styles.addButtonText}>+</Text>
@@ -71,7 +72,7 @@ export default class Completed extends Component {
           // We have data!!
           this.setState({
             JsonDB: JSON.parse(value),
-            debug: value,
+            debug: JSON.stringify(JSON.parse(value)),
           })
           this.parseDB(JSON.parse(value));
         }
@@ -80,19 +81,23 @@ export default class Completed extends Component {
       }
     }
 
+    // Display JsonDB in UI list
     parseDB(data) {
       let todos = data.todos
 
-       this.setState({
-          debug: JSON.stringify(todos[1]),
-        })
+      for (let i = 0; i < todos.length; i++) { 
 
-      // for (let i = 0; i < todos.length; i++) { 
-      //   this.state.todoArray.push({
-      //     'date': date_,
-      //     'todo': todo_,
-      //   });
-      // }
+        let date_ = todos[i]['date'];
+        let todo_ = todos[i]['text'];
+
+        this.state.todoArray.push({
+          'date': date_,
+          'todo': todo_,
+        });
+
+        this.setState({ todoArray: this.state.todoArray });
+
+      }
     }
 
     // When a new todo is added
@@ -100,7 +105,7 @@ export default class Completed extends Component {
         if(this.state.todoText){
             var d = new Date();
 
-            let date_ = d.getFullYear() + "/"+(d.getMonth()+1) + "/"+ d.getDate();
+            let date_ = d.getFullYear() + "/" + (d.getMonth()+1) + "/"+ d.getDate();
             let todo_ = this.state.todoText;
 
             this.state.todoArray.push({
@@ -115,6 +120,7 @@ export default class Completed extends Component {
         }
     }
 
+    // Save a new todo in JsonDB
     saveTodo(content, today) {
 
       let newTodo = {
@@ -131,12 +137,59 @@ export default class Completed extends Component {
       });
 
       this._storeEntry('@ToDoStore:JSON', JSONdata);
-
     }
 
+
+    // When a todo is completed
+    completeTodo(key) {
+      
+      // Update UI
+      this.state.todoArray.splice(key, 1);
+      this.setState({todoArray: this.state.todoArray});
+      
+      let JSONdata = this.state.JsonDB;
+
+      // Update JSON
+      JSONdata.todos.splice(key, 1);
+      JSONdata.totalcount += 1;
+
+      var d = new Date();
+      let date_ = d.getFullYear() + "/" + (d.getMonth()+1) + "/"+ d.getDate();
+      
+      // TODO: Add on load
+      if (JSONdata.today === date_) {
+        JSONdata.todaycount += 1;
+      } else {
+        JSONdata.todaycount = 1;
+        JSONdata.today = date_;  
+      }
+
+      this.setState({
+        JsonDB: JSONdata,
+      });
+
+      // Update AsyncStorage
+      this._storeEntry('@ToDoStore:JSON', JSONdata);
+    }
+
+    // When a todo is deleted
     deleteTodo(key){
-        this.state.todoArray.splice(key, 1);
-        this.setState({todoArray: this.state.todoArray});
+      
+      // Update UI
+      this.state.todoArray.splice(key, 1);
+      this.setState({todoArray: this.state.todoArray});
+      
+      let JSONdata = this.state.JsonDB;
+
+      // Update JSON
+      JSONdata.todos.splice(key, 1);
+
+      this.setState({
+        JsonDB: JSONdata,
+      });
+
+      // Update AsyncStorage
+      this._storeEntry('@ToDoStore:JSON', JSONdata);
     }
 
     _storeEntry = async (key, data) => {
