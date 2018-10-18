@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "height": 550,
+      "width": "100%",
+    }
+  }
+>
+  <MapView
+    initialRegion={
+      Object {
+        "latitude": 63.430515,
+        "latitudeDelta": 0.0622,
+        "longitude": 10.395053,
+        "longitudeDelta": 0.0421,
+      }
+    }
+    region={null}
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</View>
+`;
