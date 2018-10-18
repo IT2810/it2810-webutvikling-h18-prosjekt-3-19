@@ -8,6 +8,8 @@ import LinksScreen from '../screens/LinksScreen';
 import TodoScreen from '../screens/TodoScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
+import MapScreen from '../screens/MapScreen';
+import CompletedScreen from '../screens/CompletedScreen';
 
 const TodoStack = createStackNavigator({
   Home: TodoScreen,
@@ -42,7 +44,7 @@ AchievementsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  Settings: MapScreen,
 });
 
 SettingsStack.navigationOptions = {
