@@ -1,18 +1,16 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import Achievements from '../components/Achievements';
 
-export default class LinksScreen extends React.Component {
+export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Links',
+    title: 'Achievements',
   };
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
+        <Achievements></Achievements>
       </ScrollView>
     );
   }
@@ -21,7 +19,7 @@ export default class LinksScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
+    // paddingTop: 15,
     backgroundColor: '#fff',
   },
 });
