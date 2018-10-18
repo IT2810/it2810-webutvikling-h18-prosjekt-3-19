@@ -13,32 +13,26 @@ export default class Todo extends Component {
         super(props);
         this.state = {
           text: this.props.text,
-          checked: false,
-          dialogVisible: false
+          checked: false
         }
       }
     
-      checkBoxChecked = () => {
-        this.props.removeTodoElement(this.props.text);
-        this.setState({ dialogVisible: false });
-      }
     
-      showDialog = () => {
-        this.setState({ dialogVisible: true });
-      };
     
-      handleCancel = () => {
-        this.setState({ dialogVisible: false });
+
+    checkBoxChecked = () => {
+        this.props.deleteMethod(this.props.text);
+        console.log('hi');
+
       };
 
-    
     render() {
         return (
             <View key={this.props.keyval} style={styles.todo}>
             <ListItem>
                   <CheckBox style={styles.checkBox}
-                    center
-                    checked={this.state.checked}
+                    center checked={this.state.checked}
+                    onPress={this.checkBoxChecked}
                   />
               <Body>
                 <Text style={styles.todoText}>{this.props.val.date}</Text>
@@ -76,6 +70,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 40
     },
+    checkBox: {
+        borderColor: 'black',
+      },
     todoDeleteText: {
         color: 'white'
     }
