@@ -1,22 +1,17 @@
 import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
 import Main from '../components/Main';
 
 export default class TodoScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Todo',
   };
 
   render() {
     return (
-
             <Main/>
-  
     );
   }
 
