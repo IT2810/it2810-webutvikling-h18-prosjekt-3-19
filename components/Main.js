@@ -17,6 +17,13 @@ export default class Completed extends Component {
         this.state = {
             todoArray: [],
             todoText: '',
+
+            JsonDB: {
+              'todos':[],
+              'totalcount': 0,
+              'todaycount': 0,
+              'today': '2000/01/01',
+            },
         };
     }
 
@@ -28,6 +35,7 @@ export default class Completed extends Component {
         return (
             <View style={styles.todo}>
                 <View>
+
                         <TextInput 
                             style={styles.textInput}
                             placeholder='Write Todo Here!'
@@ -36,6 +44,10 @@ export default class Completed extends Component {
                             placeholderTextColor='black'
                             underlineColorAndroid='transparent'>
                         </TextInput>
+
+                        {/* DEBUG */}
+                        <Text>{ this.state.debug }</Text>
+
                         <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
                             <Text style={styles.addButtonText}>+</Text>
                         </TouchableOpacity>
@@ -46,60 +58,90 @@ export default class Completed extends Component {
             </View>
         );
     }
-    addTodo(){
-        if(this.state.todoText){
-            var d = new Date();
-            this.state.todoArray.push({
-                'date':d.getFullYear()+
-                "/"+(d.getMonth()+1) +
-                "/"+ d.getDate(),
-                'todo': this.state.todoText
-            });
-            this.setState({ todoArray: this.state.todoArray });
-            this.setState({todoText:''});
-            Alert.alert("test");
-            this.saveTodo();
-            this.getJSON();
-        }
-    }
 
+    // When app starts get JSON from storage
     componentDidMount() {
       this.getJSON();
     }
 
-    updatelist() {
-      Alert.alert(JSON.stringify(this.state.todos))
+    getJSON = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@ToDoStore:JSON');
+        if (value !== null) {
+          // We have data!!
+          this.setState({
+            JsonDB: JSON.parse(value),
+            debug: value,
+          })
+          this.parseDB(JSON.parse(value));
+        }
+      } catch (error) {
+        Alert.alert('Error retrieving data');
+      }
     }
 
-    getJSON() {
-      this._retrieveEntry('@ToDoStore:JSON');
+    parseDB(data) {
+      let todos = data.todos
+
+       this.setState({
+          debug: JSON.stringify(todos[1]),
+        })
+
+      // for (let i = 0; i < todos.length; i++) { 
+      //   this.state.todoArray.push({
+      //     'date': date_,
+      //     'todo': todo_,
+      //   });
+      // }
     }
 
-    saveTodo() {
-      this._storeEntry('@ToDoStore:JSON', "JSONDATA");
+    // When a new todo is added
+    addTodo(){
+        if(this.state.todoText){
+            var d = new Date();
+
+            let date_ = d.getFullYear() + "/"+(d.getMonth()+1) + "/"+ d.getDate();
+            let todo_ = this.state.todoText;
+
+            this.state.todoArray.push({
+                'date': date_,
+                'todo': todo_,
+            });
+
+            this.setState({ todoArray: this.state.todoArray });
+            this.setState({ todoText:'' });
+            
+            this.saveTodo(todo_, date_);
+        }
+    }
+
+    saveTodo(content, today) {
+
+      let newTodo = {
+        'text': content,
+        'date': today,
+      }
+
+      let JSONdata = this.state.JsonDB;
+
+      JSONdata.todos.push(newTodo);
+
+      this.setState({
+        JsonDB: JSONdata,
+      });
+
+      this._storeEntry('@ToDoStore:JSON', JSONdata);
+
     }
 
     deleteTodo(key){
         this.state.todoArray.splice(key, 1);
         this.setState({todoArray: this.state.todoArray});
     }
-    _retrieveEntry = async (key) => {
-      try {
-        const value = await AsyncStorage.getItem('@ToDoStore:JSON');
-        if (value !== null) {
-          // We have data!!
-          console.log(value);
-          Alert.alert(value);
-        }
-      } catch (error) {
-        // Error retrieving data
-        Alert.alert('¯\\_(ツ)_/¯ ');
-      }
-    }
 
     _storeEntry = async (key, data) => {
       try {
-        await AsyncStorage.setItem('@ToDoStore:JSON', 'JSONDATA');
+        await AsyncStorage.setItem('@ToDoStore:JSON', JSON.stringify(data));
       } catch (error) {
         Alert.alert('Error saving data');
       }
@@ -137,6 +179,6 @@ const styles = StyleSheet.create({
     },
     addButtonText: {
         color: '#fff',
-        fontSize: 24
+        fontSize: 24,
     }
 });
