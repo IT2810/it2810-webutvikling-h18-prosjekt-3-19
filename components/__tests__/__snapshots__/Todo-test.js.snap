@@ -50,7 +50,7 @@ exports[`Testing Todo-component Testing rendering Todo renders correctly 1`] = `
           Object {
             "backgroundColor": "transparent",
             "borderBottomWidth": 1,
-            "borderColor": "#039BE5",
+            "borderColor": "black",
             "borderLeftWidth": 1,
             "borderRadius": 13,
             "borderRightWidth": 1,
@@ -86,6 +86,7 @@ exports[`Testing Todo-component Testing rendering Todo renders correctly 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
+          onPress={[Function]}
           style={
             Object {
               "paddingLeft": 20,
@@ -96,6 +97,7 @@ exports[`Testing Todo-component Testing rendering Todo renders correctly 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
+          onPress={[Function]}
           style={
             Object {
               "paddingLeft": 20,

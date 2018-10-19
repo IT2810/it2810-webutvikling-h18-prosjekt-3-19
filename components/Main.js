@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -9,71 +9,75 @@ import {
   Alert,
   AsyncStorage,
   Modal,
-  TouchableHighlight,
-} from 'react-native';
-import { Location, Permissions } from 'expo';
-import {
-  createStackNavigator,
-} from 'react-navigation';
-import Todo from './Todo';
-import MapModal from './MapModal';
+  TouchableHighlight
+} from "react-native";
+import { Location, Permissions } from "expo";
+import { createStackNavigator } from "react-navigation";
+import Todo from "./Todo";
+import MapModal from "./MapModal";
 
 export default class Main extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       todoArray: [],
-      todoText: '',
+      todoText: "",
       modalVisible: true,
 
       coord_y: 0,
       coord_x: 0,
 
       JsonDB: {
-        'todos':[],
-        'totalcount': 0,
-        'todaycount': 0,
-        'today': '2000/01/01',
+        todos: [],
+        totalcount: 0,
+        todaycount: 0,
+        today: "2000/01/01"
       },
       CompletedDB: {
-        'todos': []
-      },
+        todos: []
+      }
     };
   }
 
   render() {
-    let todos = this.state.todoArray.map((val, key)=>{
-      return <Todo 
-        key={key} 
-        keyval={key} 
-        val={val}
-        deleteMethod={()=>this.deleteTodo(key)}
-        completeMethod={()=>this.completeTodo(key)}
-        inspectMethod={()=>this.inspectTodo(key)}
-      />
+    let todos = this.state.todoArray.map((val, key) => {
+      return (
+        <Todo
+          key={key}
+          keyval={key}
+          val={val}
+          deleteMethod={() => this.deleteTodo(key)}
+          completeMethod={() => this.completeTodo(key)}
+          inspectMethod={() => this.inspectTodo(key)}
+        />
+      );
     });
     return (
       <View style={styles.todo}>
         <View>
+          <MapModal
+            x={this.state.coord_x}
+            y={this.state.coord_y}
+            onRef={ref => (this.mapmod = ref)}
+          />
 
-          <MapModal x={this.state.coord_x} y={this.state.coord_y} onRef={ref => (this.mapmod = ref)}></MapModal>
-          
-          <TextInput 
+          <TextInput
             style={styles.textInput}
-            placeholder='Write Todo Here!'
-            onChangeText={(todoText)=> this.setState({todoText})}
+            placeholder="Write Todo Here!"
+            onChangeText={todoText => this.setState({ todoText })}
             value={this.state.todoText}
-            placeholderTextColor='black'
-            underlineColorAndroid='transparent'>
-          </TextInput>
+            placeholderTextColor="black"
+            underlineColorAndroid="transparent"
+          />
 
-          <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
-              <Text style={styles.addButtonText}>+</Text>
+          <TouchableOpacity
+            onPress={this.addTodo.bind(this)}
+            style={styles.addButton}
+          >
+            <Text style={styles.addButtonText}>+</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={styles.todoContainer}>
-            {todos}
-        </ScrollView>
+        <ScrollView style={styles.todoContainer}>{todos}</ScrollView>
       </View>
     );
   }
@@ -85,53 +89,52 @@ export default class Main extends Component {
 
   getJSON = async () => {
     try {
-      const value = await AsyncStorage.getItem('@ToDoStore:JSON');
+      const value = await AsyncStorage.getItem("@ToDoStore:JSON");
       if (value !== null) {
         // We have data!!
         this.setState({
-          JsonDB: JSON.parse(value),
-        })
+          JsonDB: JSON.parse(value)
+        });
         this.parseDB(JSON.parse(value));
       }
     } catch (error) {
-      Alert.alert('Error retrieving data');
+      Alert.alert("Error retrieving data");
     }
-  }
+  };
 
   // Display JsonDB in UI list
   parseDB(data) {
-    let todos = data.todos
+    let todos = data.todos;
 
-    for (let i = 0; i < todos.length; i++) { 
-
-      let date_ = todos[i]['date'];
-      let todo_ = todos[i]['text'];
+    for (let i = 0; i < todos.length; i++) {
+      let date_ = todos[i]["date"];
+      let todo_ = todos[i]["text"];
 
       this.state.todoArray.push({
-        'date': date_,
-        'todo': todo_,
+        date: date_,
+        todo: todo_
       });
 
       this.setState({ todoArray: this.state.todoArray });
-
     }
   }
 
   // When a new todo is added
-  addTodo(){
-    if(this.state.todoText){
+  addTodo() {
+    if (this.state.todoText) {
       var d = new Date();
 
-      let date_ = d.getFullYear() + "/" + (d.getMonth()+1) + "/"+ d.getDate();
+      let date_ =
+        d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       let todo_ = this.state.todoText;
 
       this.state.todoArray.push({
-        'date': date_,
-        'todo': todo_,
+        date: date_,
+        todo: todo_
       });
 
       this.setState({ todoArray: this.state.todoArray });
-      this.setState({ todoText:'' });
+      this.setState({ todoText: "" });
 
       this._getLocationAsync(todo_, date_);
     }
@@ -141,14 +144,11 @@ export default class Main extends Component {
     try {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
-      if (status !== 'granted') {
-
-        this.saveTodo(todo_, date_, {longitude: 0, latitude: 0});
-
+      if (status !== "granted") {
+        this.saveTodo(todo_, date_, { longitude: 0, latitude: 0 });
       } else {
-
         let location = await Location.getCurrentPositionAsync({});
-        
+
         this.saveTodo(todo_, date_, location);
       }
     } catch (e) {
@@ -158,29 +158,26 @@ export default class Main extends Component {
 
   // Save a new todo in JsonDB
   saveTodo(content, today, location) {
-
     let newTodo = {
-      'text': content,
-      'date': today,
-      'x': location.coords.latitude,
-      'y': location.coords.longitude,
-    }
+      text: content,
+      date: today,
+      x: location.coords.latitude,
+      y: location.coords.longitude
+    };
 
     let JSONdata = this.state.JsonDB;
 
     JSONdata.todos.push(newTodo);
 
     this.setState({
-      JsonDB: JSONdata,
+      JsonDB: JSONdata
     });
 
-    this._storeEntry('@ToDoStore:JSON', JSONdata);
+    this._storeEntry("@ToDoStore:JSON", JSONdata);
   }
-
 
   // When a todo is completed
   completeTodo(key) {
-    
     // Update UI
     let td = this.state.todoArray.splice(key, 1);
 
@@ -189,11 +186,11 @@ export default class Main extends Component {
 
     this.setState({
       todoArray: this.state.todoArray,
-      CompletedDB: completedDB,
+      CompletedDB: completedDB
     });
 
-    this._storeEntry('@ToDoStore:Completed', JSON.stringify(completedDB));
-    
+    this._storeEntry("@ToDoStore:Completed", JSON.stringify(completedDB));
+
     let JSONdata = this.state.JsonDB;
 
     // Update JSON
@@ -201,91 +198,90 @@ export default class Main extends Component {
     JSONdata.totalcount += 1;
 
     var d = new Date();
-    let date_ = d.getFullYear() + "/" + (d.getMonth()+1) + "/"+ d.getDate();
-    
+    let date_ = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+
     // TODO: Add on load
     if (JSONdata.today === date_) {
       JSONdata.todaycount += 1;
     } else {
       JSONdata.todaycount = 1;
-      JSONdata.today = date_;  
+      JSONdata.today = date_;
     }
 
     this.setState({
-      JsonDB: JSONdata,
+      JsonDB: JSONdata
     });
 
     // Update AsyncStorage
-    this._storeEntry('@ToDoStore:JSON', JSONdata);
+    this._storeEntry("@ToDoStore:JSON", JSONdata);
   }
 
   // When a todo is deleted
-  deleteTodo(key){
-    
+  deleteTodo(key) {
     // Update UI
     this.state.todoArray.splice(key, 1);
-    this.setState({todoArray: this.state.todoArray});
-    
+    this.setState({ todoArray: this.state.todoArray });
+
     let JSONdata = this.state.JsonDB;
 
     // Update JSON
     JSONdata.todos.splice(key, 1);
 
     this.setState({
-      JsonDB: JSONdata,
+      JsonDB: JSONdata
     });
 
     // Update AsyncStorage
-    this._storeEntry('@ToDoStore:JSON', JSONdata);
+    this._storeEntry("@ToDoStore:JSON", JSONdata);
   }
 
   _storeEntry = async (key, data) => {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(data));
     } catch (error) {
-      Alert.alert('Error saving data');
+      Alert.alert("Error saving data");
     }
-  }
+  };
 
   inspectTodo(key) {
     this.mapmod.setModalVisible(true);
     // Alert.alert(this.state.JsonDB.todos[key].x.toString())
     this.setState({
       coord_x: this.state.JsonDB.todos[key].x,
-      coord_y: this.state.JsonDB.todos[key].y,
-    })
+      coord_y: this.state.JsonDB.todos[key].y
+    });
   }
 }
 const styles = StyleSheet.create({
   todo: {
-    flex: 1,
+    flex: 1
   },
   todoContainer: {
-    position: 'relative',
-    flex: 2,
+    position: "relative",
+    flex: 2
   },
   textInput: {
-    alignSelf: 'stretch',
-    color: '#000',
+    alignSelf: "stretch",
+    color: "#000",
     padding: 20,
-    backgroundColor: 'white',
-    borderTopWidth:2,
-    borderTopColor: '#ededed'     
+    backgroundColor: "white",
+    borderTopWidth: 2,
+    borderTopColor: "#ededed"
   },
   addButton: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 11,
     right: 10,
     top: 10,
-    backgroundColor: '#E91E63',
+    backgroundColor: "#E91E63",
     width: 40,
     height: 40,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   addButtonText: {
-    color: '#fff',
-    fontSize: 24,
+    color: "#fff",
+    fontSize: 24
   }
 });

@@ -2,7 +2,12 @@ import React from "react";
 import Achievements from "../Achievements";
 import renderer from "react-test-renderer";
 
-test("Achievements renders correctly", () => {
+describe("Testing Todo-component", () => {
   const tree = renderer.create(<Achievements />);
-  expect(tree.toJSON()).toMatchSnapshot();
+
+  describe("Testing rendering", () => {
+    test("Achievements renders correctly", () => {
+      expect(tree.toJSON()).toMatchSnapshot();
+    });
+  });
 });
