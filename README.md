@@ -1,5 +1,7 @@
 IT2810 - Prosjekt 3, gruppe 19
 
+![screenshots.png](docs/screenshots.png)
+
 # Todo Manager
 
 Todo Manager er en "personal information manager" som gir deg medaljer utifra hvor mye du bruker appen.
