@@ -52,6 +52,8 @@ export default class Achievements extends Component {
                 : require('../assets/images/achievements/20_.png')
             }
           />
+        </View>
+        <View style={styles.badgeContainer}>
           <Image
             style={styles.achievementBadge}
             source={
@@ -107,6 +109,8 @@ export default class Achievements extends Component {
                 : require('../assets/images/achievements/500_.png')
             }
           />
+        </View>
+        <View style={styles.badgeContainer}>
           <Image
             style={styles.achievementBadge}
             source={
