@@ -101,6 +101,8 @@ npm test -- --coverage
 
 En ting som er verdt å merke seg ved dette prosjektet er at vi er ute etter å vise at vi kan teste komponentene våre (basic unit testing) med bruk av jest. Test-coverage står dermed ikke i hovedfokus i dette prosjektet.
 
+Vi har hatt en del problemer når det kommer til testing av komponenter med MapView og Marker. Vi har prøvd å finne mock-løsninger (funnet på blant annet stackoverflow), men dette er ikke noe vi føler oss helt trygge på å gjøre uten å forstå hva som skjer. På grunn av dette får vi en test som feiler. Dette er Main-test.js, og feilen vi får er "TypeError: this.map.setNativeProps is not a function". Hadde vært fint å finne svar på det, men det tok for lang tid å sette seg inn i dette så vi prioriterte de viktigere delene av prosjektet.
+
 ### Emulators
 
 I tillegg til å benytte oss av expo-appen har vi lastet ned emulatorer både for android og ios for å teste appen vår. Det var spesielt viktig for oss å teste på android da ingen av oss er i besittelse av en slik mobiltelefon.
@@ -155,8 +157,7 @@ _retrieveData = async () => {
 }
 ```
 
-I vårt prosjekt gir vi nøkkel og data som attributter til `_storeEntry`. Vi har valgt å bruke JSON for lagring, derfor konverterer vi til tekst før det lagres. 
-
+I vårt prosjekt gir vi nøkkel og data som attributter til `_storeEntry`. Vi har valgt å bruke JSON for lagring, derfor konverterer vi til tekst før det lagres.
 
 ```
 _storeEntry = async (key, data) => {
@@ -168,10 +169,9 @@ _storeEntry = async (key, data) => {
 }
 ```
 
-
 ### Expo Location og Permissions
 
-Expo kommer med to funksjoner, Location og Permission, som gjør det mulig å hente brukerens geografiske posisjon. 
+Expo kommer med to funksjoner, Location og Permission, som gjør det mulig å hente brukerens geografiske posisjon.
 
 Start ved å importere biblioteneke fra Expo.
 
@@ -203,10 +203,10 @@ _getLocationAsync = async () => {
       // User denied access
 
     } else {
-      
+
       // Get location
       let location = await Location.getCurrentPositionAsync({});
-      
+
       // Save location
       this.setState({ loc: location });
     }
