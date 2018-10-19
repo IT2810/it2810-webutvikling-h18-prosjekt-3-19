@@ -19,7 +19,7 @@ Todo Manager har tre hovedfunksjoner:
 
 ## Oppstart
 
-For å kjøre appen, trenger man Expo og Node.js/NPM installert. 
+For å kjøre appen, trenger man Expo og Node.js/NPM installert.
 
 ### Installing
 
@@ -106,7 +106,7 @@ Vi har hatt en del problemer når det kommer til testing av komponenter med MapV
 
 ### Emulators
 
-I tillegg til å benytte oss av expo-appen har vi lastet ned emulatorer både for android og ios for å teste appen vår. Det var spesielt viktig for oss å teste på android da ingen av oss er i besittelse av en slik mobiltelefon.
+I tillegg til å benytte oss av expo-appen har vi lastet ned emulatorer både for android og ios for å teste appen vår. Det var spesielt viktig for oss å teste på android da ingen av oss er i besittelse av en slik mobiltelefon. Dette ga oss også muligheten til å teste appen i andre skjermstørrelser enn de vi har selv.
 
 ## Diskusjon av viktige valg
 
@@ -237,3 +237,9 @@ Som sagt over føler vi at sammarbeidet innad i gruppen har vært grei, dessverr
 - [NPM](http://npmjs.com) - Avhenigheter og bibliotekinstallasjon
 - [Expo](https://expo.io) - Bygging av applikasjonen
 - [Jest](https://jestjs.io) - Testing
+
+## Mangler
+
+Før levering av oppgaven oppdaget vi en bug som gjorde at kartvisningen ikke fungerer jevnt på Android enheter. Vi hadde ikke tid til å fikse feilen, men vi vet at problemet ligger i at geolokasjonsfunksjonen på android ikke alltid fungerer slik som vi har antatt. Vedlagt er et skjermbilde som viser en fungerende versjon av kartvisningen på android. Nålen viser at vi er i San Francisco, fordi dette er posisjonen Android-simulatoren gir til appen vår.
+
+![android_map.png](docs/android_map.png)
