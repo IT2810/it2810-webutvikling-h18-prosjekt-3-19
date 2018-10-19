@@ -1,60 +1,45 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import TodoScreen from '../screens/TodoScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const TodoStack = createStackNavigator({
+  Home: TodoScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+TodoStack.navigationOptions = {
+  tabBarLabel: 'Todo',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-checkmark-circle${focused ? '' : '-outline'}`
+          : 'md-checkmark-circle'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const AchievementsStack = createStackNavigator({
+  Links: AchievementsScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+AchievementsStack.navigationOptions = {
+  tabBarLabel: 'Achievements',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-trophy${focused ? '' : '-outline'}` : 'md-link'}
     />
   ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
+  
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  TodoStack,
+  AchievementsStack,
 });

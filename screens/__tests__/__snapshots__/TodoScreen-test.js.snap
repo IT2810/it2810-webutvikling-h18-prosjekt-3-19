@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Write Todo Here!"
+      placeholderTextColor="black"
+      style={
+        Object {
+          "alignSelf": "stretch",
+          "backgroundColor": "white",
+          "borderTopColor": "#ededed",
+          "borderTopWidth": 2,
+          "color": "#000",
+          "padding": 20,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#E91E63",
+          "borderRadius": 5,
+          "height": 40,
+          "justifyContent": "center",
+          "opacity": 1,
+          "position": "absolute",
+          "right": 10,
+          "top": 10,
+          "width": 40,
+          "zIndex": 11,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 24,
+          }
+        }
+      >
+        +
+      </Text>
+    </View>
+  </View>
+</View>
+`;
