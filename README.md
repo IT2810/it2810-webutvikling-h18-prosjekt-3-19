@@ -170,6 +170,16 @@ _storeEntry = async (key, text) => {
 
 Vi lagrer hver todo som en egen entry, og holder oversikt over nøklene til disse i en liste som også lagres gjennom AsyncStorage, men på et fast sted. Når applikasjonen åpnes, hentes denne listen fra det faste stedet og så alle todoene.
 
+## Arbeidsmetodikk
+
+### Git
+
+For å holde orden på progresjonen i utvklingen av produktet vårt har vi brukt github. I startfasen av prosjektet lagde vi issues som beskrivde hva som måtte gjøres. Ut i fra disse issuesene opprettet vi branches. Sammarbeidet/arbeidsfordelingen har vært grei, selv om noen tok litt mer ansvar enn andre. Vi kunne dog vært bedre på å pushe tidlig i utviklingen, noe vi ble mye bedre på i sluttfasen. Før vi startet opprettet vi en policy om å relatere commits til issues for å styrke strukturen i utviklingen. Dette har vi klart (med et par unntak selvsagt).
+
+### Gruppearbeid
+
+Som sagt over føler vi at sammarbeidet innad i gruppen har vært grei, dessverre ikke utmerket da vi fortsatt ikke har lært hverandre å kjenne. Dette merket vi for eksempel de gangene vi ville sette opp arbeidsmøter (forskjellig døgnrytme etc). Noen har også tatt mer ansvar enn andre, men samtidig har de som har tatt ansvar for ulike deler forklart godt hva de har gjort til de andre medlemmene av gruppen. Det er også enstemmig vedtatt at alle har lært masse om både react-native, jest, asyncStorage og det å arbeide i team (både positive og negative sider).
+
 ## Built With
 
 - [React Native](https://facebook.github.io/react-native/) - JavaScript rammeverk for mobile applikasjoner
