@@ -155,21 +155,66 @@ _retrieveData = async () => {
 }
 ```
 
-I vårt prosjekt har vi valgt å legge dette inn i mer dynamiske funksjoner, som tar inn respektive verdier og nøkler fra applikasjonen:
+I vårt prosjekt gir vi nøkkel og data som attributter til `_storeEntry`. Vi har valgt å bruke JSON for lagring, derfor konverterer vi til tekst før det lagres. 
 
-### !! TODO !!
 
 ```
-_storeEntry = async (key, text) => {
+_storeEntry = async (key, data) => {
   try {
-    await AsyncStorage.setItem(key, text);
+    await AsyncStorage.setItem(key, JSON.stringify(data));
   } catch (error) {
     Alert.alert('Error saving data');
   }
 }
 ```
 
-Vi lagrer hver todo som en egen entry, og holder oversikt over nøklene til disse i en liste som også lagres gjennom AsyncStorage, men på et fast sted. Når applikasjonen åpnes, hentes denne listen fra det faste stedet og så alle todoene.
+
+### Expo Location og Permissions
+
+Expo kommer med to funksjoner, Location og Permission, som gjør det mulig å hente brukerens geografiske posisjon. 
+
+Start ved å importere biblioteneke fra Expo.
+
+```
+import { Location, Permissions } from 'expo';
+```
+
+Først må man be om tilatelse til å bruke posisjonen til brukeren.
+
+```
+let { status } = await Permissions.askAsync(Permissions.LOCATION);
+```
+
+Her vil status variabelen bli satt til "granted" hvis brukeren godtar. Deretter vil man kunne få tak i lokasjonen.
+
+```
+let location = await Location.getCurrentPositionAsync({});
+```
+
+En full implementering av dette vil se noe slik ut:
+
+```
+_getLocationAsync = async () => {
+  try {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status !== 'granted') {
+
+      // User denied access
+
+    } else {
+      
+      // Get location
+      let location = await Location.getCurrentPositionAsync({});
+      
+      // Save location
+      this.setState({ loc: location });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+```
 
 ## Arbeidsmetodikk
 
