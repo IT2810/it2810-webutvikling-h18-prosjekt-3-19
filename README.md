@@ -8,6 +8,8 @@ One Paragraph of project description goes here
 - **Johannes Tomren Røsvik** [@rosvik](http://github.com/rosvik)
 - **Pål Fossnes** [@Palfos23](http://github.com/Palfos23)
 
+## App functionality
+
 ## Getting Started
 
 ### Prerequisites
@@ -172,9 +174,11 @@ Vi lagrer hver todo som en egen entry, og holder oversikt over nøklene til diss
 
 ## Arbeidsmetodikk
 
-### Git
+### Git og koding
 
-For å holde orden på progresjonen i utvklingen av produktet vårt har vi brukt github. I startfasen av prosjektet lagde vi issues som beskrivde hva som måtte gjøres. Ut i fra disse issuesene opprettet vi branches. Sammarbeidet/arbeidsfordelingen har vært grei, selv om noen tok litt mer ansvar enn andre. Vi kunne dog vært bedre på å pushe tidlig i utviklingen, noe vi ble mye bedre på i sluttfasen. Før vi startet opprettet vi en policy om å relatere commits til issues for å styrke strukturen i utviklingen. Dette har vi klart (med et par unntak selvsagt).
+For å holde orden på progresjonen i utvklingen av produktet vårt har vi brukt github. I startfasen av prosjektet lagde vi issues som beskrivde hva som måtte gjøres. Ut i fra disse issuesene opprettet vi branches. Sammarbeidet/arbeidsfordelingen har vært grei, selv om noen tok litt mer ansvar enn andre. Vi kunne dog vært bedre på å pushe tidlig i utviklingen, noe vi ble mye bedre på i sluttfasen. Før vi startet opprettet vi en policy om å relatere commits til issues for å styrke strukturen i utviklingen. Dette føler vi at vi har gjort meget bra (med et par unntak selvsagt).
+
+Koden er godt kommentert og oversiktlig. Dette gjør det enklere for folk utenfra å forstå hele prosjektet vårt. Den er også godt strukturert med komponenter, tester osv. Komponenter, variabler og lignende er navngitt etter best practise. Dette er noe vi alltid prøver å gjøre skikkelig og som hjelper på å gjøre koden enda mer oversiktlig og fin.
 
 ### Gruppearbeid
 
