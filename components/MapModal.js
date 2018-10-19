@@ -23,13 +23,16 @@ export default class MapModal extends Component {
 
   render() {
 
-    return (
+     return (
       <View style={styles.todo}>
         <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
-            >
+            onRequestClose={() => {
+              console.log('Modal has been closed.');
+            }}
+          >
           <View style={{marginTop: 22}}>
             <View>
               <TouchableHighlight

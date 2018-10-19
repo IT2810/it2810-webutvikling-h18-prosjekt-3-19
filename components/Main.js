@@ -37,8 +37,10 @@ export default class Main extends Component {
         todos: []
       }
     };
-  }
-
+  }  
+  
+  
+  // Creates the todo elements
   render() {
     let todos = this.state.todoArray.map((val, key) => {
       return (
@@ -60,7 +62,7 @@ export default class Main extends Component {
             y={this.state.coord_y}
             onRef={ref => (this.mapmod = ref)}
           />
-
+            
           <TextInput
             style={styles.textInput}
             placeholder="Write Todo Here!"
@@ -81,6 +83,8 @@ export default class Main extends Component {
       </View>
     );
   }
+
+
 
   // When app starts get JSON from storage
   componentDidMount() {
@@ -248,7 +252,7 @@ export default class Main extends Component {
     // Alert.alert(this.state.JsonDB.todos[key].x.toString())
     this.setState({
       coord_x: this.state.JsonDB.todos[key].x,
-      coord_y: this.state.JsonDB.todos[key].y
+      coord_y: this.state.JsonDB.todos[key].y,
     });
   }
 }

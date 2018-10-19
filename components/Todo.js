@@ -41,7 +41,7 @@ export default class Todo extends Component {
           </Body>
         </ListItem>
         <TouchableOpacity onPress={this.props.deleteMethod} style={styles.todoDelete}>
-          <Text style={styles.todoDeleteText}>X</Text>
+          <Text style={styles.todoDeleteText}>Delete</Text>
         </TouchableOpacity>
      </View>
     );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     right: 10,
     zIndex: 11,
     borderRadius: 5,
-    width: 40
+    width: 50
   },
   checkBox: {
     borderColor: 'black',
