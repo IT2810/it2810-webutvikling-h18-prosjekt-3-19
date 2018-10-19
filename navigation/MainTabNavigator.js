@@ -1,12 +1,13 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+
 
 import TabBarIcon from '../components/TabBarIcon';
 import TodoScreen from '../screens/TodoScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
 import MapScreen from '../screens/MapScreen';
-import CompletedScreen from '../screens/CompletedScreen';
+import TestScreen from '../screens/TestScreen';
 
 const TodoStack = createStackNavigator({
   Home: TodoScreen,
@@ -27,7 +28,7 @@ TodoStack.navigationOptions = {
 };
 
 const CompletedStack = createStackNavigator({
-  Home: CompletedScreen,
+  Home: TestScreen,
 });
 
 CompletedStack.navigationOptions = {
@@ -56,6 +57,7 @@ AchievementsStack.navigationOptions = {
       name={Platform.OS === 'ios' ? `ios-trophy${focused ? '' : '-outline'}` : 'md-link'}
     />
   ),
+  
 };
 
 const SettingsStack = createStackNavigator({
@@ -76,7 +78,6 @@ export default createBottomTabNavigator({
   TodoStack,
   CompletedStack,
   AchievementsStack,
-  SettingsStack,
 });
 
 // export default createBottomTabNavigator({
