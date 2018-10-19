@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 
 import { CheckBox, ListItem, Body } from 'native-base';
@@ -22,6 +23,10 @@ export default class Todo extends Component {
       this.props.completeMethod(this.props.text);
     };
 
+    inspect = () => {
+      this.props.inspectMethod(this.props.text);
+    }
+
     render() {
         return (
             <View key={this.props.keyval} style={styles.todo}>
@@ -31,9 +36,9 @@ export default class Todo extends Component {
                     onPress={this.checkBoxChecked}
                   />
               <Body>
-                <Text style={styles.todoText}>{this.props.val.date}</Text>
-                <Text style={styles.todoText}>{this.props.val.todo}</Text>
-                </Body>
+                <Text style={styles.todoText} onPress={this.inspect}>{this.props.val.date}</Text>
+                <Text style={styles.todoText} onPress={this.inspect}>{this.props.val.todo}</Text>
+              </Body>
               </ListItem>
               <TouchableOpacity onPress={this.props.deleteMethod} style={styles.todoDelete}>
                     <Text style={styles.todoDeleteText}>X</Text>

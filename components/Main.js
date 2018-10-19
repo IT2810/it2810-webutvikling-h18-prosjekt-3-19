@@ -8,8 +8,15 @@ import {
     TouchableOpacity,
     Alert,
     AsyncStorage,
+    Modal,
+    TouchableHighlight,
 } from 'react-native';
+import {
+  createStackNavigator,
+} from 'react-navigation';
 import Todo from './Todo';
+import MapScreen from '../screens/MapScreen';
+import MapModal from './MapModal';
 
 export default class Completed extends Component {
     constructor(props){
@@ -17,6 +24,7 @@ export default class Completed extends Component {
       this.state = {
         todoArray: [],
         todoText: '',
+        modalVisible: true,
 
         JsonDB: {
           'todos':[],
@@ -28,36 +36,43 @@ export default class Completed extends Component {
     }
 
     render() {
-        let todos = this.state.todoArray.map((val, key)=>{
-            return <Todo key={key} keyval={key} val={val}
-                    deleteMethod={()=>this.deleteTodo(key)}
-                    completeMethod={()=>this.completeTodo(key)}/>
-        });
-        return (
-            <View style={styles.todo}>
-                <View>
+      let todos = this.state.todoArray.map((val, key)=>{
+        return <Todo 
+          key={key} 
+          keyval={key} 
+          val={val}
+          deleteMethod={()=>this.deleteTodo(key)}
+          completeMethod={()=>this.completeTodo(key)}
+          inspectMethod={()=>this.inspectTodo(key)}
+        />
+      });
+      return (
+        <View style={styles.todo}>
+          <View>
 
-                        <TextInput 
-                            style={styles.textInput}
-                            placeholder='Write Todo Here!'
-                            onChangeText={(todoText)=> this.setState({todoText})}
-                            value={this.state.todoText}
-                            placeholderTextColor='black'
-                            underlineColorAndroid='transparent'>
-                        </TextInput>
+            <MapModal x={this.state.coord_x} y={this.state.coord_y} onRef={ref => (this.mapmod = ref)}></MapModal>
+            
+            <TextInput 
+                style={styles.textInput}
+                placeholder='Write Todo Here!'
+                onChangeText={(todoText)=> this.setState({todoText})}
+                value={this.state.todoText}
+                placeholderTextColor='black'
+                underlineColorAndroid='transparent'>
+            </TextInput>
 
-                        {/* DEBUG */}
-                        {/*<Text>{ this.state.debug }</Text>*/}
+            {/* DEBUG */}
+            {/*<Text>{ this.state.debug }</Text>*/}
 
-                        <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
-                            <Text style={styles.addButtonText}>+</Text>
-                        </TouchableOpacity>
-                </View>
-                <ScrollView style={styles.todoContainer}>
-                    {todos}
-                </ScrollView>
-            </View>
-        );
+            <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
+                <Text style={styles.addButtonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView style={styles.todoContainer}>
+              {todos}
+          </ScrollView>
+        </View>
+      );
     }
 
     // When app starts get JSON from storage
@@ -200,6 +215,9 @@ export default class Completed extends Component {
       }
     }
 
+    inspectTodo(key) {
+      this.mapmod.setModalVisible(true);
+    }
 
 }
 const styles = StyleSheet.create({

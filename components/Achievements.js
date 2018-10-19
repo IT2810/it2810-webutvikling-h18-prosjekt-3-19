@@ -152,7 +152,12 @@ export default class Achievements extends Component {
   // When app starts get JSON from storage
   componentDidMount() {
     this.getJSON();
+
+    this._interval = setInterval(() => {
+      this.getJSON();
+    }, 1000);
   }
+
 
 
   getJSON = async () => {
