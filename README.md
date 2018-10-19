@@ -114,9 +114,21 @@ npm test -- --coverage
 
 En ting som er verdt å merke seg ved dette prosjektet er at vi er ute etter å vise at vi kan teste komponentene våre (basic unit testing) med bruk av jest. Test-coverage står dermed ikke i hovedfokus i dette prosjektet.
 
+### Emulators
+
+I tillegg til å benytte oss av expo-appen har vi lastet ned emulatorer både for android og ios for å teste appen vår. Det var spesielt viktig for oss å teste på android da ingen av oss er i besittelse av en slik mobiltelefon.
+
 ## Diskusjon av viktige valg
 
 > Dokumentasjonen skal diskutere, forklare og vise til alle de viktigste valgene og løsningene som gruppa gjør (inklusive valg av komponenter og api).
+
+Vi valgte å gjøre appen vår ganske enkel og uten for mange unødvendige komponenter som egentlig ikke har noen funksjon til systemet. Dette ser man tydelig ved at vi har valgt å bare ha 2 "tabs", den ene inneholder todos og den andre achievements.
+
+Selv om todos-siden virker ganske enkel, inneholder den også en MapModal som viser hvor i verden hver todo ble skapt. Vi har altså valgt å benytte oss av expo sitt maps api (gps). Vi følte at dette var en mer relevant funksjon enn for eksempel en skritteller. Selve kartet er implementert i en såkalt "modal", altså et pop-up-vindu. Vi følte at dette var en løsning som viser kartfunksjonen på en fin og ryddig måte.
+
+For å booste innsatsen til brukeren er det som sagt implementert en achievements-side med "trofeer". Her kan man få en liten premie basert på hvor mange todos man har gjort både iløpet av en dag og helt siden man begynte å benytte seg av appen. Her har vi benyttet oss av asyncStorage (noe som blir presentert under).
+
+Som en konsekvens av våre simplistiske valg står vi igjen med et ganske oversiktlig prosjekt og relativt få komponenter. Dette er et valg vi står ved, spesielt med tanke på læringseffekten av å gjøre ting på en ordentlig måte. Vår oppfatning er at vi får lært mye mer når vi holder ting enkelt i motsetning til når man velger å gjøre ting litt for komplisert enn det trenger å være. Vi føler uansett at vi har tilført alt av krav til både teknologi og funksjonalitet til prosjektet.
 
 ## Tutorials for valg av teknologi
 
