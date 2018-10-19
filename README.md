@@ -1,24 +1,25 @@
 IT2810 - Prosjekt 3, gruppe 19
 
-# Hydrinator
+# Todo Manager
 
-One Paragraph of project description goes here
+Todo Manager er en "personal information manager" som gir deg medaljer utifra hvor mye du bruker appen.
 
 - **Ahsan Azim** [@ahsannazim](https://github.com/ahsannazim)
 - **Johannes Tomren Røsvik** [@rosvik](http://github.com/rosvik)
 - **Pål Fossnes** [@Palfos23](http://github.com/Palfos23)
 
-## App functionality
+## App funksjonalitet
 
-## Getting Started
+Todo Manager har tre hovedfunksjoner:
 
-### Prerequisites
+1. En todo-liste med oversikt over dine todos.
+2. Et kart over hvor hver todo har ble opprettet geografisk. (Ved å trykke på en todo)
+3. Oversikt over dine oppnådde medaljer.
 
-Expo
 
-```
-npm install expo-cli --global
-```
+## Oppstart
+
+For å kjøre appen, trenger man Expo og Node.js/NPM installert. 
 
 ### Installing
 
@@ -34,9 +35,9 @@ Bygg prosjektet med expo
 expo start
 ```
 
-Scan QR-koden med mobilen for å åpne applikasjonen.
+Scan QR-koden fra terminalen eller nettsiden med en QR-leser for å åpne applikasjonen.
 
-## Running the tests
+## Kjøre testene
 
 Når man benytter seg av
 
@@ -101,6 +102,8 @@ npm test -- --coverage
 
 En ting som er verdt å merke seg ved dette prosjektet er at vi er ute etter å vise at vi kan teste komponentene våre (basic unit testing) med bruk av jest. Test-coverage står dermed ikke i hovedfokus i dette prosjektet.
 
+Vi har hatt en del problemer når det kommer til testing av komponenter med MapView og Marker. Vi har prøvd å finne mock-løsninger (funnet på blant annet stackoverflow), men dette er ikke noe vi føler oss helt trygge på å gjøre uten å forstå hva som skjer. På grunn av dette får vi en test som feiler. Dette er Main-test.js, og feilen vi får er "TypeError: this.map.setNativeProps is not a function". Hadde vært fint å finne svar på det, men det tok for lang tid å sette seg inn i dette så vi prioriterte de viktigere delene av prosjektet.
+
 ### Emulators
 
 I tillegg til å benytte oss av expo-appen har vi lastet ned emulatorer både for android og ios for å teste appen vår. Det var spesielt viktig for oss å teste på android da ingen av oss er i besittelse av en slik mobiltelefon.
@@ -116,6 +119,8 @@ Selv om todos-siden virker ganske enkel, inneholder den også en MapModal som vi
 For å booste innsatsen til brukeren er det som sagt implementert en achievements-side med "trofeer". Her kan man få en liten premie basert på hvor mange todos man har gjort både iløpet av en dag og helt siden man begynte å benytte seg av appen. Her har vi benyttet oss av asyncStorage (noe som blir presentert under).
 
 Som en konsekvens av våre simplistiske valg står vi igjen med et ganske oversiktlig prosjekt og relativt få komponenter. Dette er et valg vi står ved, spesielt med tanke på læringseffekten av å gjøre ting på en ordentlig måte. Vår oppfatning er at vi får lært mye mer når vi holder ting enkelt i motsetning til når man velger å gjøre ting litt for komplisert enn det trenger å være. Vi føler uansett at vi har tilført alt av krav til både teknologi og funksjonalitet til prosjektet.
+
+Vi valgte å bruke flere komponenter fra Expo, som vi syns var enkle og bruke, i tillegg til at det dekte våre behov til funksjonalitet. Vi endte opp med å ikke hente så mange komponenter fra andre kilder, fordi vi ikke hadde ønsker om å implementere mer avanserte komponenter enn vi fikk til på egen hånd. Dette viser at React Native i kombinasjon med Expo er et kraftig verktøy med mange nyttige ressurser for apputvikling.
 
 ## Tutorials for valg av teknologi
 
@@ -155,8 +160,7 @@ _retrieveData = async () => {
 }
 ```
 
-I vårt prosjekt gir vi nøkkel og data som attributter til `_storeEntry`. Vi har valgt å bruke JSON for lagring, derfor konverterer vi til tekst før det lagres. 
-
+I vårt prosjekt gir vi nøkkel og data som attributter til `_storeEntry`. Vi har valgt å bruke JSON for lagring, derfor konverterer vi til tekst før det lagres.
 
 ```
 _storeEntry = async (key, data) => {
@@ -168,10 +172,9 @@ _storeEntry = async (key, data) => {
 }
 ```
 
-
 ### Expo Location og Permissions
 
-Expo kommer med to funksjoner, Location og Permission, som gjør det mulig å hente brukerens geografiske posisjon. 
+Expo kommer med to funksjoner, Location og Permission, som gjør det mulig å hente brukerens geografiske posisjon.
 
 Start ved å importere biblioteneke fra Expo.
 
@@ -203,10 +206,10 @@ _getLocationAsync = async () => {
       // User denied access
 
     } else {
-      
+
       // Get location
       let location = await Location.getCurrentPositionAsync({});
-      
+
       // Save location
       this.setState({ loc: location });
     }
@@ -228,7 +231,7 @@ Koden er godt kommentert og oversiktlig. Dette gjør det enklere for folk utenfr
 
 Som sagt over føler vi at sammarbeidet innad i gruppen har vært grei, dessverre ikke utmerket da vi fortsatt ikke har lært hverandre å kjenne. Dette merket vi for eksempel de gangene vi ville sette opp arbeidsmøter (forskjellig døgnrytme etc). Noen har også tatt mer ansvar enn andre, men samtidig har de som har tatt ansvar for ulike deler forklart godt hva de har gjort til de andre medlemmene av gruppen. Det er også enstemmig vedtatt at alle har lært masse om både react-native, jest, asyncStorage og det å arbeide i team (både positive og negative sider).
 
-## Built With
+## Brukte rammeverk
 
 - [React Native](https://facebook.github.io/react-native/) - JavaScript rammeverk for mobile applikasjoner
 - [NPM](http://npmjs.com) - Avhenigheter og bibliotekinstallasjon
