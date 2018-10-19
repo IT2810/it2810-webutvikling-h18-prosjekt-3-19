@@ -26,6 +26,9 @@ export default class Completed extends Component {
         todoText: '',
         modalVisible: true,
 
+        coord_y: 0,
+        coord_x: 0,
+
         JsonDB: {
           'todos':[],
           'totalcount': 0,
@@ -217,6 +220,10 @@ export default class Completed extends Component {
 
     inspectTodo(key) {
       this.mapmod.setModalVisible(true);
+      this.setState({
+        coord_x: 63.416,
+        coord_y: 10.405,
+      })
     }
 
 }

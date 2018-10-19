@@ -3,17 +3,14 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
     ScrollView,
-    TouchableOpacity,
     Alert,
     AsyncStorage,
     Modal,
     TouchableHighlight,
 } from 'react-native';
-import {
-  createStackNavigator,
-} from 'react-navigation';
+
+import { MapView, Location, Permissions } from 'expo';
 import Todo from './Todo';
 import MapScreen from '../screens/MapScreen';
 
@@ -23,29 +20,45 @@ export default class MapModal extends Component {
       super(props);
       this.state = {
         modalVisible: false,
-      };
+      }
     }
 
     render() {
+
       return (
         <View style={styles.todo}>
           <Modal
               animationType="slide"
               transparent={false}
               visible={this.state.modalVisible}
-              onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-              }}>
+              >
               <View style={{marginTop: 22}}>
                 <View>
-                  <Text>Hello World!</Text>
-
                   <TouchableHighlight
                     onPress={() => {
                       this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                    <Text>Hide Modal</Text>
+                    }} style={styles.header}>
+
+                    <Text style={styles.backButton}>Hide Modal</Text>
+
                   </TouchableHighlight>
+                  <View >
+                    <MapView
+                      style={styles.map}
+                      region={{ 
+                        latitude: this.props.x, 
+                        longitude: this.props.y, 
+                        latitudeDelta: 0.1, 
+                        longitudeDelta: 0.1 }}
+                    >
+
+                      <MapView.Marker
+                        coordinate={{latitude: this.props.x, longitude: this.props.y}}
+                        title="My Location"
+                      />
+                    </MapView>
+
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -63,13 +76,26 @@ export default class MapModal extends Component {
     setModalVisible(visible) {
       this.setState({modalVisible: visible});
     }
-
-
-    method() {
-      Alert.alert("WOHO")
-    }
-
 }
 const styles = StyleSheet.create({
-    
+  mapContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  map: {
+    width: "100%",
+    height: "100%"
+  },
+
+  header: {
+    margin:25,
+    marginTop: 40,
+  },
+
+  backButton: {
+    color: 'blue',
+  },
+  
 });
