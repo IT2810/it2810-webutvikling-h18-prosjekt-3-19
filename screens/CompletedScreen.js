@@ -1,17 +1,15 @@
 import React from 'react';
-import {
-  StyleSheet,
-} from 'react-native';
-import Main from '../components/Main';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import Completed from '../components/Completed';
 
-export default class TodoScreen extends React.Component {
+export default class CompletedScreen extends React.Component {
   static navigationOptions = {
-    title: 'Todo',
+    title: 'Tasks Completed',
   };
 
   render() {
     return (
-      <Main/>
+            <Completed/>
     );
   }
 

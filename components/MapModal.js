@@ -10,71 +10,72 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
-import Colors from '../constants/Colors';
 import { MapView, Location, Permissions } from 'expo';
 import Todo from './Todo';
+import MapScreen from '../screens/MapScreen';
 
 
 export default class MapModal extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      modalVisible: false,
+    constructor(props){
+      super(props);
+      this.state = {
+        modalVisible: false,
+      }
     }
-  }
 
-  render() {
-    return (
-      <View style={styles.todo}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          >
-          <View style={{marginTop: 22}}>
-            <View>
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }} style={styles.header}>
+    render() {
 
-                <Text style={styles.backButton}>Hide Modal</Text>
+      return (
+        <View style={styles.todo}>
+          <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              >
+              <View style={{marginTop: 22}}>
+                <View>
+                  <TouchableHighlight
+                    onPress={() => {
+                      this.setModalVisible(!this.state.modalVisible);
+                    }} style={styles.header}>
 
-              </TouchableHighlight>
-              <View >
-                <MapView
-                  style={styles.map}
-                  region={{ 
-                    latitude: this.props.x, 
-                    longitude: this.props.y, 
-                    latitudeDelta: 0.1, 
-                    longitudeDelta: 0.1 }}
-                >
+                    <Text style={styles.backButton}>Hide Map</Text>
 
-                  <MapView.Marker
-                    coordinate={{latitude: this.props.x, longitude: this.props.y}}
-                    title="My Location"
-                  />
-                </MapView>
+                  </TouchableHighlight>
+                  <View >
+                    <MapView
+                      style={styles.map}
+                      region={{ 
+                        latitude: this.props.x, 
+                        longitude: this.props.y, 
+                        latitudeDelta: 0.1, 
+                        longitudeDelta: 0.1 }}
+                    >
 
+                      <MapView.Marker
+                        coordinate={{latitude: this.props.x, longitude: this.props.y}}
+                        title="My Location"
+                      />
+                    </MapView>
+
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
-        </Modal>
-      </View>
-    );
-  }
+            </Modal>
+        </View>
+      );
+    }
 
-  componentDidMount() {
-    this.props.onRef(this)
-  }
-  componentWillUnmount() {
-    this.props.onRef(null)
-  }
+    componentDidMount() {
+      this.props.onRef(this)
+    }
+    componentWillUnmount() {
+      this.props.onRef(null)
+    }
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  }
+    setModalVisible(visible) {
+      this.setState({modalVisible: visible});
+    }
 }
 const styles = StyleSheet.create({
   mapContainer: {
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
   },
 
   backButton: {
-    color: Colors.tintColor,
-  },  
+    color: 'blue',
+  },
+  
 });
