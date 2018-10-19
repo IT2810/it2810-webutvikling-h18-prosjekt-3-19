@@ -91,19 +91,6 @@ expect(value)toBeGreaterThan(6);
 expect(compileAndroidCode).toThrow(ConfigError);
 ```
 
-Dette kan man se i testingen vår av komponenten Todo:
-
-```
-...
-describe("Testing functionality", () => {
-    test("Checkbox is checked", () => {
-      tree2.checkBoxChecked();
-      expect(tree2.state.dialogVisible).toBeFalsy();
-    });
-
-...
-```
-
 ### Coverage
 
 Se test-coverage med
