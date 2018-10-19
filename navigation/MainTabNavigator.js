@@ -7,7 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import TodoScreen from '../screens/TodoScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
 import MapScreen from '../screens/MapScreen';
-import TestScreen from '../screens/TestScreen';
+import CompletedScreen from '../screens/CompletedScreen';
 
 const TodoStack = createStackNavigator({
   Home: TodoScreen,
@@ -28,7 +28,7 @@ TodoStack.navigationOptions = {
 };
 
 const CompletedStack = createStackNavigator({
-  Home: TestScreen,
+  Home: CompletedScreen,
 });
 
 CompletedStack.navigationOptions = {

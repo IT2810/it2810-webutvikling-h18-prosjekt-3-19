@@ -39,7 +39,7 @@ export default class MapModal extends Component {
                       this.setModalVisible(!this.state.modalVisible);
                     }} style={styles.header}>
 
-                    <Text style={styles.backButton}>Hide Modal</Text>
+                    <Text style={styles.backButton}>Hide Map</Text>
 
                   </TouchableHighlight>
                   <View >

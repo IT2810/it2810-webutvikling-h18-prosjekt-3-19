@@ -11,6 +11,7 @@ import {
     Modal,
     TouchableHighlight,
 } from 'react-native';
+import { Location, Permissions } from 'expo';
 import {
   createStackNavigator,
 } from 'react-navigation';
@@ -18,7 +19,7 @@ import Todo from './Todo';
 import MapScreen from '../screens/MapScreen';
 import MapModal from './MapModal';
 
-export default class Completed extends Component {
+export default class Main extends Component {
     constructor(props){
       super(props);
       this.state = {
@@ -34,6 +35,9 @@ export default class Completed extends Component {
           'totalcount': 0,
           'todaycount': 0,
           'today': '2000/01/01',
+        },
+        CompletedDB: {
+          'todos': []
         },
       };
     }
@@ -65,7 +69,7 @@ export default class Completed extends Component {
             </TextInput>
 
             {/* DEBUG */}
-            {/*<Text>{ this.state.debug }</Text>*/}
+            <Text>{ this.state.debug }</Text>
 
             <TouchableOpacity onPress={ this.addTodo.bind(this) } style={styles.addButton}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -90,7 +94,7 @@ export default class Completed extends Component {
           // We have data!!
           this.setState({
             JsonDB: JSON.parse(value),
-            debug: JSON.stringify(JSON.parse(value)),
+            // debug: JSON.stringify(JSON.parse(value)),
           })
           this.parseDB(JSON.parse(value));
         }
@@ -133,17 +137,43 @@ export default class Completed extends Component {
 
             this.setState({ todoArray: this.state.todoArray });
             this.setState({ todoText:'' });
-            
-            this.saveTodo(todo_, date_);
+
+            this._getLocationAsync(todo_, date_);
         }
     }
 
+    _getLocationAsync = async (todo_, date_) => {
+      try {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+        if (status !== 'granted') {
+
+          this.saveTodo(todo_, date_, {longitude: 0, latitude: 0});
+
+        } else {
+
+          let location = await Location.getCurrentPositionAsync({});
+          
+          // this.setState({
+          //   debug: JSON.stringify(location.coords.longitude)
+          // })
+          
+          this.saveTodo(todo_, date_, location);
+
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     // Save a new todo in JsonDB
-    saveTodo(content, today) {
+    saveTodo(content, today, location) {
 
       let newTodo = {
         'text': content,
         'date': today,
+        'x': location.coords.latitude,
+        'y': location.coords.longitude,
       }
 
       let JSONdata = this.state.JsonDB;
@@ -152,6 +182,7 @@ export default class Completed extends Component {
 
       this.setState({
         JsonDB: JSONdata,
+        // debug: JSON.stringify(JSONdata),
       });
 
       this._storeEntry('@ToDoStore:JSON', JSONdata);
@@ -162,8 +193,18 @@ export default class Completed extends Component {
     completeTodo(key) {
       
       // Update UI
-      this.state.todoArray.splice(key, 1);
-      this.setState({todoArray: this.state.todoArray});
+      let td = this.state.todoArray.splice(key, 1);
+
+      let completedDB = this.state.CompletedDB;
+      completedDB.todos.push(td[0]);
+
+      this.setState({
+        todoArray: this.state.todoArray,
+        CompletedDB: completedDB,
+        debug: JSON.stringify(completedDB),
+      });
+
+      this._storeEntry('@ToDoStore:Completed', JSON.stringify(completedDB));
       
       let JSONdata = this.state.JsonDB;
 
@@ -212,7 +253,7 @@ export default class Completed extends Component {
 
     _storeEntry = async (key, data) => {
       try {
-        await AsyncStorage.setItem('@ToDoStore:JSON', JSON.stringify(data));
+        await AsyncStorage.setItem(key, JSON.stringify(data));
       } catch (error) {
         Alert.alert('Error saving data');
       }
@@ -220,11 +261,13 @@ export default class Completed extends Component {
 
     inspectTodo(key) {
       this.mapmod.setModalVisible(true);
+      // Alert.alert(this.state.JsonDB.todos[key].x.toString())
       this.setState({
-        coord_x: 63.416,
-        coord_y: 10.405,
+        coord_x: this.state.JsonDB.todos[key].x,
+        coord_y: this.state.JsonDB.todos[key].y,
       })
     }
+
 
 }
 const styles = StyleSheet.create({
